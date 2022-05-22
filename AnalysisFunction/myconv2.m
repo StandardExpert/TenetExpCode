@@ -1,0 +1,36 @@
+%研究研究卷积
+a = [...
+    -1 -1 -1 -1 -1 -1;...
+    -1 -1 -1 -1 -1 -1;...
+    -1 -1 -1 -1 -1 -1;...
+    -1 -1 -1 -1 -1 -1;...
+    -1 -1 -1 -1 -1 -1;...
+    -1 -1 -1 -1 -1 -1 ...
+    ];
+
+b = [...
+    1 1 1;...
+    1 1 1;...
+    1 1 1 ...
+    ];
+tic;
+for ii = 1:10000000
+    convOutcome = conv2(a,b,'same') ./ 9;
+end
+fprintf("same = %f\n",toc);
+
+tic
+for ii = 1:10000000
+    convOutcome = conv2(a,b,'valid') ./ 9;
+end
+fprintf("valid = %f\n",toc);
+
+
+imshow(rescale(convOutcome));
+%这应该没问题啊，为啥算出来结果就有问题呢？
+
+
+convOutcome = conv2(smallImageProcessed,imrotate(smallImageProcessed,180),'same') ./ validNumber;
+imshow((convOutcome+1)/2);
+[maxValue,maxIndex] = max(convOutcome,[],'all')
+[maxRow,maxCow] = ind2sub(size(smallImageProcessed,1),maxIndex);
